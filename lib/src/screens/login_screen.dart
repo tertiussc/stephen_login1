@@ -11,13 +11,14 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       child: Form(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             emailField(),
             passwordField(),
+            const SizedBox(height: 20),
             submitButton(),
           ],
         ),
@@ -26,27 +27,37 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
 // Fields list
+
+// Email field
   Widget emailField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         label: Text('Login Email'),
         hintText: 'you@example.com',
       ),
     );
   }
 
+  // Password field
   Widget passwordField() {
     return TextFormField(
       obscureText: true,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         label: Text('Login Password'),
-        hintText: 'Ýour Secret password',
+        hintText: 'Your secret password',
       ),
     );
   }
 
+  // Submit button
   Widget submitButton() {
-    return ElevatedButton(onPressed: null, child: Text('Submit'));
+    return ElevatedButton(
+      onPressed: () {},
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 50),
+      ),
+      child: const Text('Submit'),
+    );
   }
 }
