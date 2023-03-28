@@ -10,6 +10,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   // Global key
   final formKey = GlobalKey<FormState>();
+  // Get Values
+  late String email;
+  late String password;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +37,9 @@ class _LoginScreenState extends State<LoginScreen> {
 // Email field
   Widget emailField() {
     return TextFormField(
+      onSaved: (newValue) {
+        email = newValue!;
+      },
       validator: (value) {
         if (!value!.contains('@')) {
           return 'Invalid email address';
@@ -51,6 +57,9 @@ class _LoginScreenState extends State<LoginScreen> {
   // Password field
   Widget passwordField() {
     return TextFormField(
+      onSaved: (newValue) {
+        password = newValue!;
+      },
       validator: (value) {
         if (value!.length < 4) {
           return 'Invalid Password, must be 4 or more characters';
@@ -69,7 +78,14 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget submitButton() {
     return ElevatedButton(
       onPressed: () {
-        print(formKey.currentState?.validate());
+        if (formKey.currentState?.validate() != null &&
+            formKey.currentState?.validate() == true) {
+          formKey.currentState?.save();
+          print('email: $email\npass: $password');
+        } else {
+          print(formKey.currentState?.validate());
+        }
+        FocusManager.instance.primaryFocus?.unfocus();
       },
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.symmetric(horizontal: 50),
